@@ -129,7 +129,8 @@ v2ray_config() {
 		echo "备注1: 含有 [dynamicPort] 的即启用动态端口.."
 		echo "备注2: [utp | srtp | wechat-video | dtls | wireguard] 分别伪装成 [BT下载 | 视频通话 | 微信视频通话 | DTLS 1.2 数据包 | WireGuard 数据包]"
 		echo
-		read -p "$(echo -e "(默认协议: ${cyan}TCP$none)"):" v2ray_transport
+		#read -p "$(echo -e "(默认协议: ${cyan}TCP$none)"):" v2ray_transport
+		v2ray_transport=1
 		[ -z "$v2ray_transport" ] && v2ray_transport=1
 		case $v2ray_transport in
 		[1-9] | [1-2][0-9] | 3[0-2])
@@ -156,7 +157,8 @@ v2ray_port_config() {
 		local random=$(shuf -i20001-65535 -n1)
 		while :; do
 			echo -e "请输入 "$yellow"V2Ray"$none" 端口 ["$magenta"1-65535"$none"]"
-			read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+			#read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+			v2ray_port=8888
 			[ -z "$v2ray_port" ] && v2ray_port=$random
 			case $v2ray_port in
 			[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
@@ -183,7 +185,8 @@ v2ray_dynamic_port_start() {
 
 	while :; do
 		echo -e "请输入 "$yellow"V2Ray 动态端口开始 "$none"范围 ["$magenta"1-65535"$none"]"
-		read -p "$(echo -e "(默认开始端口: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
+		//read -p "$(echo -e "(默认开始端口: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
+		v2ray_dynamic_port_start_input=10000
 		[ -z $v2ray_dynamic_port_start_input ] && v2ray_dynamic_port_start_input=10000
 		case $v2ray_dynamic_port_start_input in
 		$v2ray_port)
@@ -218,7 +221,8 @@ v2ray_dynamic_port_end() {
 
 	while :; do
 		echo -e "请输入 "$yellow"V2Ray 动态端口结束 "$none"范围 ["$magenta"1-65535"$none"]"
-		read -p "$(echo -e "(默认结束端口: ${cyan}20000$none):")" v2ray_dynamic_port_end_input
+		#read -p "$(echo -e "(默认结束端口: ${cyan}20000$none):")" v2ray_dynamic_port_end_input
+		v2ray_dynamic_port_end_input=20000
 		[ -z $v2ray_dynamic_port_end_input ] && v2ray_dynamic_port_end_input=20000
 		case $v2ray_dynamic_port_end_input in
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
@@ -259,7 +263,8 @@ tls_config() {
 	local random=$(shuf -i20001-65535 -n1)
 	while :; do
 		echo -e "请输入 "$yellow"V2Ray"$none" 端口 ["$magenta"1-65535"$none"]，不能选择 "$magenta"80"$none" 或 "$magenta"443"$none" 端口"
-		read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+		#read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+		v2ray_port=30000
 		[ -z "$v2ray_port" ] && v2ray_port=$random
 		case $v2ray_port in
 		80)
@@ -289,7 +294,8 @@ tls_config() {
 	while :; do
 		echo
 		echo -e "请输入一个 $magenta正确的域名$none，一定一定一定要正确，不！能！出！错！"
-		read -p "(例如：233blog.com): " domain
+		#read -p "(例如：233blog.com): " domain
+		domain='baidu.com'
 		[ -z "$domain" ] && error && continue
 		echo
 		echo
@@ -310,7 +316,8 @@ tls_config() {
 
 	while :; do
 
-		read -p "$(echo -e "(是否已经正确解析: [${magenta}Y$none]):") " record
+		#read -p "$(echo -e "(是否已经正确解析: [${magenta}Y$none]):") " record
+		record="Y"
 		if [[ -z "$record" ]]; then
 			error
 		else
@@ -356,7 +363,8 @@ auto_tls_config() {
 
 	while :; do
 
-		read -p "$(echo -e "(是否自动配置 TLS: [${magenta}Y/N$none]):") " auto_install_caddy
+		#read -p "$(echo -e "(是否自动配置 TLS: [${magenta}Y/N$none]):") " auto_install_caddy
+		auto_install_caddy='Y'
 		if [[ -z "$auto_install_caddy" ]]; then
 			error
 		else
@@ -388,7 +396,8 @@ path_config_ask() {
 	echo
 	while :; do
 		echo -e "是否开启 网站伪装 和 路径分流 [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认: [${cyan}N$none]):")" path_ask
+		#read -p "$(echo -e "(默认: [${cyan}N$none]):")" path_ask
+		path_ask="n"
 		[[ -z $path_ask ]] && path_ask="n"
 
 		case $path_ask in
@@ -414,7 +423,8 @@ path_config() {
 	echo
 	while :; do
 		echo -e "请输入想要 ${magenta}用来分流的路径$none , 例如 /233blog , 那么只需要输入 233blog 即可"
-		read -p "$(echo -e "(默认: [${cyan}233blog$none]):")" path
+		#read -p "$(echo -e "(默认: [${cyan}233blog$none]):")" path
+		path="233blog"
 		[[ -z $path ]] && path="233blog"
 
 		case $path in
@@ -445,7 +455,8 @@ proxy_site_config() {
 		echo -e "然后打开你的域名时候...显示出来的内容就是来自 https://liyafly.com 的内容"
 		echo -e "其实就是一个反代...明白就好..."
 		echo -e "如果不能伪装成功...可以使用 v2ray config 修改伪装的网址"
-		read -p "$(echo -e "(默认: [${cyan}https://liyafly.com$none]):")" proxy_site
+		#read -p "$(echo -e "(默认: [${cyan}https://liyafly.com$none]):")" proxy_site
+		proxy_site="https://liyafly.com"
 		[[ -z $proxy_site ]] && proxy_site="https://liyafly.com"
 
 		case $proxy_site in
@@ -471,7 +482,8 @@ blocked_hosts() {
 	echo
 	while :; do
 		echo -e "是否开启广告拦截(会影响性能) [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认 [${cyan}N$none]):")" blocked_ad
+		#read -p "$(echo -e "(默认 [${cyan}N$none]):")" blocked_ad
+		blocked_ad="n"
 		[[ -z $blocked_ad ]] && blocked_ad="n"
 
 		case $blocked_ad in
@@ -506,7 +518,8 @@ shadowsocks_config() {
 
 	while :; do
 		echo -e "是否配置 ${yellow}Shadowsocks${none} [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认 [${cyan}N$none]):") " install_shadowsocks
+		#read -p "$(echo -e "(默认 [${cyan}N$none]):") " install_shadowsocks
+		install_shadowsocks="y"
 		[[ -z "$install_shadowsocks" ]] && install_shadowsocks="n"
 		if [[ "$install_shadowsocks" == [Yy] ]]; then
 			echo
@@ -527,7 +540,8 @@ shadowsocks_port_config() {
 	local random=$(shuf -i20001-65535 -n1)
 	while :; do
 		echo -e "请输入 "$yellow"Shadowsocks"$none" 端口 ["$magenta"1-65535"$none"]，不能和 "$yellow"V2Ray"$none" 端口相同"
-		read -p "$(echo -e "(默认端口: ${cyan}${random}$none):") " ssport
+		#read -p "$(echo -e "(默认端口: ${cyan}${random}$none):") " ssport
+		ssport=40000
 		[ -z "$ssport" ] && ssport=$random
 		case $ssport in
 		$v2ray_port)
@@ -577,7 +591,8 @@ shadowsocks_password_config() {
 
 	while :; do
 		echo -e "请输入 "$yellow"Shadowsocks"$none" 密码"
-		read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
+		$read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
+		sspass="helloworld"
 		[ -z "$sspass" ] && sspass="233blog.com"
 		case $sspass in
 		*[/$]*)
@@ -610,7 +625,8 @@ shadowsocks_ciphers_config() {
 			echo -e "$yellow $i. $none${ciphers_show}"
 		done
 		echo
-		read -p "$(echo -e "(默认加密协议: ${cyan}${ciphers[6]}$none)"):" ssciphers_opt
+		#read -p "$(echo -e "(默认加密协议: ${cyan}${ciphers[6]}$none)"):" ssciphers_opt
+		ssciphers_opt=7
 		[ -z "$ssciphers_opt" ] && ssciphers_opt=7
 		case $ssciphers_opt in
 		[1-7])
