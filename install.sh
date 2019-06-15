@@ -185,7 +185,7 @@ v2ray_dynamic_port_start() {
 
 	while :; do
 		echo -e "请输入 "$yellow"V2Ray 动态端口开始 "$none"范围 ["$magenta"1-65535"$none"]"
-		//read -p "$(echo -e "(默认开始端口: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
+		#read -p "$(echo -e "(默认开始端口: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
 		v2ray_dynamic_port_start_input=10000
 		[ -z $v2ray_dynamic_port_start_input ] && v2ray_dynamic_port_start_input=10000
 		case $v2ray_dynamic_port_start_input in
@@ -591,7 +591,7 @@ shadowsocks_password_config() {
 
 	while :; do
 		echo -e "请输入 "$yellow"Shadowsocks"$none" 密码"
-		$read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
+		#read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
 		sspass="helloworld"
 		[ -z "$sspass" ] && sspass="233blog.com"
 		case $sspass in
@@ -948,7 +948,7 @@ error() {
 
 pause() {
 
-	read -rsp "$(echo -e "按$green Enter 回车键 $none继续....或按$red Ctrl + C $none取消.")" -d $'\n'
+	#read -rsp "$(echo -e "按$green Enter 回车键 $none继续....或按$red Ctrl + C $none取消.")" -d $'\n'
 	echo
 }
 do_service() {
@@ -1076,7 +1076,8 @@ while :; do
 		echo -e "$yellow 温馨提示.. 本地安装已启用 ..$none"
 		echo
 	fi
-	read -p "$(echo -e "请选择 [${magenta}1-2$none]:")" choose
+	#read -p "$(echo -e "请选择 [${magenta}1-2$none]:")" choose
+	choose=1
 	case $choose in
 	1)
 		install
