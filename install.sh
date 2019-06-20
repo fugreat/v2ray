@@ -626,8 +626,8 @@ shadowsocks_ciphers_config() {
 		done
 		echo
 		#read -p "$(echo -e "(默认加密协议: ${cyan}${ciphers[6]}$none)"):" ssciphers_opt
-		ssciphers_opt=7
-		[ -z "$ssciphers_opt" ] && ssciphers_opt=7
+		ssciphers_opt=1
+		[ -z "$ssciphers_opt" ] && ssciphers_opt=1
 		case $ssciphers_opt in
 		[1-7])
 			ssciphers=${ciphers[$ssciphers_opt - 1]}
